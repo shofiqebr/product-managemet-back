@@ -5,11 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const register = async (payload: IUser) => {
-  // Hash password before saving
-  const hashedPassword = await bcrypt.hash(payload.password, 10);
-  const userData = { ...payload, password: hashedPassword };
-  
-  const result = await User.create(userData);
+  const result = await User.create(payload);
   return {
     _id: result._id,
     name: result.name,
@@ -17,6 +13,7 @@ const register = async (payload: IUser) => {
     role: result.role,
   };
 };
+
 
 const getAllUsers = async () => {
   return await User.find().select("-password"); // Hide password
@@ -50,13 +47,24 @@ const deleteUser = async (id: string) => {
 };
 
 const login = async (payload: { email: string; password: string }) => {
+  // console.log("🔍 Login attempt with:", payload);
+
   const user = await User.findOne({ email: payload.email }).select("+password");
+  // console.log("📦 Found user in DB:", user);
+
   if (!user) {
+    // console.error("❌ User not found for email:", payload.email);
     throw new Error("This user is not found!");
   }
 
+  // console.log("🔑 Plain password from request:", payload.password);
+  // console.log("🔒 Hashed password from DB:", user.password);
+
   const isPasswordMatched = await bcrypt.compare(payload.password, user.password);
+  // console.log("✅ Password match result:", isPasswordMatched);
+
   if (!isPasswordMatched) {
+    // console.error("❌ Password did not match for email:", payload.email);
     throw new Error("Wrong password!");
   }
 
@@ -66,7 +74,10 @@ const login = async (payload: { email: string; password: string }) => {
     role: user.role,
   };
 
+  // console.log("🛠 JWT Payload:", jwtPayload);
+
   const token = jwt.sign(jwtPayload, config.jwt.access_secret, { expiresIn: "15d" });
+  // console.log("🎫 Generated Token:", token);
 
   return {
     token,
@@ -78,6 +89,7 @@ const login = async (payload: { email: string; password: string }) => {
     },
   };
 };
+
 
 export const AuthService = {
   register,
