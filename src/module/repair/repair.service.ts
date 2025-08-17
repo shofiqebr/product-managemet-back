@@ -1,36 +1,46 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/modules/repair/repair.service.ts
 import { Repair } from "./repair.model";
 import { Product } from "../product/product.model";
 
-interface RepairItem {
-  name: string;
-  cost: number;
-}
+// interface RepairItem {
+//   name: string;
+//   cost: number;
+// }
 
 interface CreateRepairPayload {
   productId: string;
-  repairItems: RepairItem[];
+  repairItems: { name: string; cost: number }[];
   image?: string;
+  createdBy: { _id: string; name: string };
 }
 
-const createRepair = async (payload: CreateRepairPayload) => {
-  const totalRepairCost = payload.repairItems.reduce((sum, item) => sum + item.cost, 0);
+const createRepair = async (payload: CreateRepairPayload, user: any) => {
+  const totalRepairCost = payload.repairItems.reduce(
+    (sum, item) => sum + item.cost,
+    0
+  );
 
-  // Create repair document
   const repair = await Repair.create({
     productId: payload.productId,
     repairItems: payload.repairItems,
     totalRepairCost,
     image: payload.image,
+
+    createdBy: {
+      _id: user._id,   // from token
+      name: user.name, // from token
+    },
   });
 
-  // Update product price by adding totalRepairCost
+  // Update product price
   await Product.findByIdAndUpdate(payload.productId, {
     $inc: { price: totalRepairCost },
   });
 
   return repair;
 };
+
 
 const getRepairsByProductId = async (productId: string) => {
   return Repair.find({ productId });

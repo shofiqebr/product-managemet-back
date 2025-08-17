@@ -20,42 +20,42 @@ const register = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
-    const result = await AuthService.getAllUsers();
+// const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
+//     const result = await AuthService.getAllUsers();
 
-    sendResponse(res, {
-        status: true,
-        message: "Users fetched successfully",
-        statusCode: StatusCodes.OK,
-        data: result,
-    });
-});
+//     sendResponse(res, {
+//         status: true,
+//         message: "Users fetched successfully",
+//         statusCode: StatusCodes.OK,
+//         data: result,
+//     });
+// });
 
-const updateUser = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const updatedData = req.body;
+// const updateUser = catchAsync(async (req: Request, res: Response) => {
+//     const { id } = req.params;
+//     const updatedData = req.body;
 
-    const result = await AuthService.updateUser(id, updatedData);
+//     const result = await AuthService.updateUser(id, updatedData);
 
-    sendResponse(res, {
-        status: true,
-        message: "User updated successfully",
-        statusCode: StatusCodes.OK,
-        data: result,
-    });
-});
+//     sendResponse(res, {
+//         status: true,
+//         message: "User updated successfully",
+//         statusCode: StatusCodes.OK,
+//         data: result,
+//     });
+// });
 
-const deleteUser = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const result = await AuthService.deleteUser(id);
+// const deleteUser = catchAsync(async (req: Request, res: Response) => {
+//     const { id } = req.params;
+//     const result = await AuthService.deleteUser(id);
 
-    sendResponse(res, {
-        status: true,
-        message: "User deleted successfully",
-        statusCode: StatusCodes.OK,
-        data: result,
-    });
-});
+//     sendResponse(res, {
+//         status: true,
+//         message: "User deleted successfully",
+//         statusCode: StatusCodes.OK,
+//         data: result,
+//     });
+// });
 
 const login = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthService.login(req.body);
@@ -94,9 +94,9 @@ const logout = catchAsync(async (_req: Request, res: Response) => {
 
 export const AuthControllers = {
     register,
-    getAllUsers,
-    updateUser,
-    deleteUser,
+    // getAllUsers,
+    // updateUser,
+    // deleteUser,
     login,
     logout,
 };

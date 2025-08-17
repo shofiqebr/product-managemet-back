@@ -15,36 +15,36 @@ const register = async (payload: IUser) => {
 };
 
 
-const getAllUsers = async () => {
-  return await User.find().select("-password"); // Hide password
-};
+// const getAllUsers = async () => {
+//   return await User.find().select("-password"); // Hide password
+// };
 
-const updateUser = async (id: string, payload: Partial<IUser>) => {
-  // If password is being updated, hash it
-  if (payload.password) {
-    payload.password = await bcrypt.hash(payload.password, 10);
-  }
+// const updateUser = async (id: string, payload: Partial<IUser>) => {
+//   // If password is being updated, hash it
+//   if (payload.password) {
+//     payload.password = await bcrypt.hash(payload.password, 10);
+//   }
 
-  const updatedUser = await User.findByIdAndUpdate(id, payload, {
-    new: true,
-    runValidators: true,
-    select: "-password",
-  });
+//   const updatedUser = await User.findByIdAndUpdate(id, payload, {
+//     new: true,
+//     runValidators: true,
+//     select: "-password",
+//   });
 
-  if (!updatedUser) {
-    throw new Error("User not found!");
-  }
+//   if (!updatedUser) {
+//     throw new Error("User not found!");
+//   }
 
-  return updatedUser;
-};
+//   return updatedUser;
+// };
 
-const deleteUser = async (id: string) => {
-  const result = await User.findByIdAndDelete(id);
-  if (!result) {
-    throw new Error("User not found!");
-  }
-  return { message: "User deleted successfully" };
-};
+// const deleteUser = async (id: string) => {
+//   const result = await User.findByIdAndDelete(id);
+//   if (!result) {
+//     throw new Error("User not found!");
+//   }
+//   return { message: "User deleted successfully" };
+// };
 
 const login = async (payload: { email: string; password: string }) => {
   // console.log("🔍 Login attempt with:", payload);
@@ -93,8 +93,8 @@ const login = async (payload: { email: string; password: string }) => {
 
 export const AuthService = {
   register,
-  getAllUsers,
-  updateUser,
-  deleteUser,
+  // getAllUsers,
+  // updateUser,
+  // deleteUser,
   login,
 };

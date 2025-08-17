@@ -7,25 +7,25 @@ const router = express.Router();
 
 // Create a new product
 router.post(
-  "/",
+  "/products",
   validateRequest(ProductValidation.createProductSchema),
   ProductController.createProduct
 );
 
 // Get all products
-router.get("/", ProductController.getAllProducts);
+router.get("/products", ProductController.getAllProducts);
 
 // Get single product by ID
-router.get("/:id", ProductController.getProductById);
+router.get("/products/:id", ProductController.getProductById);
 
 // Update product by ID
 router.patch(
-  "/:id",
+  "/products/:id",
   validateRequest(ProductValidation.updateProductSchema),
   ProductController.updateProduct
 );
 
 // Delete product by ID
-router.delete("/:id", ProductController.deleteProduct);
+router.delete("/products/:id", ProductController.deleteProduct);
 
 export const ProductRoutes = router;

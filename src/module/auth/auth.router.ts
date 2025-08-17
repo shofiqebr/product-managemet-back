@@ -10,7 +10,7 @@ const authRouter = Router();
 authRouter.post("/api/auth/register", validateRequest(UserValidation.userValidationSchema), AuthControllers.register);
 
 // Get all users (Consider adding pagination or query filters)
-authRouter.get("/api/auth/users", AuthControllers.getAllUsers);
+// authRouter.get("/api/auth/users", AuthControllers.getAllUsers);
 
 // User login
 authRouter.post("/api/auth/login", validateRequest(AuthValidation.loginValidationSchema), AuthControllers.login);

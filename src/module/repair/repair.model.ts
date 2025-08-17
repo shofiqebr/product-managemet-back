@@ -1,25 +1,20 @@
-// src/app/modules/repair/repair.model.ts
 import { Schema, model } from "mongoose";
 
 const repairSchema = new Schema(
   {
-    productId: {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
-      required: true,
-    },
+    productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
     repairItems: [
       {
-        name: { type: String, required: true },
+        description: { type: String, required: true },
         cost: { type: Number, required: true },
       },
     ],
-    totalRepairCost: {
-      type: Number,
-      required: true,
-    },
-    image: {
-      type: String, // URL of uploaded image
+    totalRepairCost: { type: Number, required: true },
+    image: { type: String },
+
+    createdBy: {
+      _id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+      name: { type: String, required: true },
     },
   },
   { timestamps: true }

@@ -1,35 +1,37 @@
 // src/app/modules/repair/repair.controller.ts
 import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import { RepairService } from "./repair.service";
+import catchAsync from "../../utils/catchAsync";
+import sendResponse from "../../utils/sendResponse";
 
-const createRepair = async (req: Request, res: Response) => {
-  try {
-    const repair = await RepairService.createRepair(req.body);
 
-    res.status(201).json({
-      success: true,
-      message: "Repair created and product price updated successfully",
-      data: repair,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+// Create repair
+const createRepair = catchAsync(async (req: Request, res: Response) => {
+  const result = await RepairService.createRepair(req.body, req.user);
 
-const getRepairsForProduct = async (req: Request, res: Response) => {
-  try {
-    const { productId } = req.params;
-    const repairs = await RepairService.getRepairsByProductId(productId);
+  sendResponse(res, {
+    status: true,
+    message: "Repair created and product price updated successfully",
+    statusCode: StatusCodes.CREATED,
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: "Repairs fetched successfully",
-      data: repairs,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+
+
+// Get repairs for a product
+const getRepairsForProduct = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  const result = await RepairService.getRepairsByProductId(productId);
+
+  sendResponse(res, {
+    status: true,
+    message: "Repairs fetched successfully",
+    statusCode: StatusCodes.OK,
+    data: result,
+  });
+});
 
 export const RepairController = {
   createRepair,
