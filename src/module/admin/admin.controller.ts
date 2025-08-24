@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/modules/admin/admin.controller.ts
 import { Request, Response } from "express";
 import { AdminService } from "./admin.service";

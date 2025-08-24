@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/modules/admin/admin.service.ts
 import { Product } from "../product/product.model";
 import { Repair } from "../repair/repair.model";

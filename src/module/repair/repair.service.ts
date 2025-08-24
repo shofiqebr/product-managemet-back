@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/app/modules/repair/repair.service.ts
+
 import { Repair } from "./repair.model";
 import { Product } from "../product/product.model";
-
-// interface RepairItem {
-//   name: string;
-//   cost: number;
-// }
 
 interface CreateRepairPayload {
   productId: string;

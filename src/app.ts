@@ -31,7 +31,7 @@ app.use(RepairRoutes);
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from basha vara');
+  res.send('Hello from product management');
 });
 
 export default app;
