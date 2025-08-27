@@ -36,6 +36,11 @@ const createRepair = async (payload: CreateRepairPayload, user: any) => {
   return repair;
 };
 
+const getAllRepairs = async () => {
+  return Repair.find().populate("productId").sort({ createdAt: -1 }); 
+};
+
+
 
 const getRepairsByProductId = async (productId: string) => {
   return Repair.find({ productId });
@@ -43,5 +48,6 @@ const getRepairsByProductId = async (productId: string) => {
 
 export const RepairService = {
   createRepair,
+  getAllRepairs,
   getRepairsByProductId,
 };

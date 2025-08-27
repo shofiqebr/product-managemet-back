@@ -18,6 +18,19 @@ const createRepair = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// Get all repairs
+const getAllRepairs = catchAsync(async (req: Request, res: Response) => {
+  const result = await RepairService.getAllRepairs();
+
+  sendResponse(res, {
+    status: true,
+    message: "All repairs fetched successfully",
+    statusCode: StatusCodes.OK,
+    data: result,
+  });
+});
+
+
 
 
 // Get repairs for a product
@@ -35,5 +48,6 @@ const getRepairsForProduct = catchAsync(async (req: Request, res: Response) => {
 
 export const RepairController = {
   createRepair,
+  getAllRepairs,
   getRepairsForProduct,
 };
