@@ -3,6 +3,7 @@ import { z } from "zod";
 
 const createRepairSchema = z.object({
   body: z.object({
+    productName: z.string({ required_error: "Product Name is required" }),
     productId: z.string({ required_error: "Product ID is required" }),
     repairItems: z
       .array(

@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 
 const repairSchema = new Schema(
   {
+    productName: { type: String },
     productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
     repairItems: [
       {

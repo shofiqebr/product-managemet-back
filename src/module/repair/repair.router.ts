@@ -14,6 +14,6 @@ router.post(
 
 router.get("/repairs", RepairController.getAllRepairs);
 
-router.get("/repairs/:productId", RepairController.getRepairsForProduct);
+router.get("/repairs/:_id", RepairController.getRepairById);
 
 export const RepairRoutes = router;

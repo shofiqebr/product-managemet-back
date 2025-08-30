@@ -4,6 +4,7 @@ import { Repair } from "./repair.model";
 import { Product } from "../product/product.model";
 
 interface CreateRepairPayload {
+  name: string;
   productId: string;
   repairItems: { name: string; cost: number }[];
   image?: string;
@@ -17,6 +18,7 @@ const createRepair = async (payload: CreateRepairPayload, user: any) => {
   );
 
   const repair = await Repair.create({
+    productName: payload.name,
     productId: payload.productId,
     repairItems: payload.repairItems,
     totalRepairCost,
@@ -42,12 +44,13 @@ const getAllRepairs = async () => {
 
 
 
-const getRepairsByProductId = async (productId: string) => {
-  return Repair.find({ productId });
+const getRepairById = async (_id: string) => {
+  return Repair.findById(_id);
 };
+
 
 export const RepairService = {
   createRepair,
   getAllRepairs,
-  getRepairsByProductId,
+  getRepairById,
 };

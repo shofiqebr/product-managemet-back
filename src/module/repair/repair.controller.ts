@@ -34,20 +34,40 @@ const getAllRepairs = catchAsync(async (req: Request, res: Response) => {
 
 
 // Get repairs for a product
-const getRepairsForProduct = catchAsync(async (req: Request, res: Response) => {
-  const { productId } = req.params;
-  const result = await RepairService.getRepairsByProductId(productId);
+// const getRepairsForProduct = catchAsync(async (req: Request, res: Response) => {
+//   const { productId } = req.params;
+//   const result = await RepairService.getRepairsByProductId(productId);
+
+//   sendResponse(res, {
+//     status: true,
+//     message: "Repairs fetched successfully",
+//     statusCode: StatusCodes.OK,
+//     data: result,
+//   });
+// });
+
+const getRepairById = catchAsync(async (req: Request, res: Response) => {
+  const { _id } = req.params;
+  // console.log(_id, "id")
+  const result = await RepairService.getRepairById(_id);
+
+  if (!result) {
+    res.status(StatusCodes.NOT_FOUND).json({ status: false, message: "Repair not found" });
+    return;
+  }
 
   sendResponse(res, {
     status: true,
-    message: "Repairs fetched successfully",
+    message: "Repair fetched successfully",
     statusCode: StatusCodes.OK,
     data: result,
   });
 });
 
+
+
 export const RepairController = {
   createRepair,
   getAllRepairs,
-  getRepairsForProduct,
+  getRepairById,
 };
